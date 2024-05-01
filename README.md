@@ -1,1 +1,161 @@
-# lolnet
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <link rel="stylesheet" href="1reg.css">
+    <link rel="stylesheet" href="1.css">
+    <style>
+        /* Общие стили */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+            background: #000;
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        video {
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+
+        #captchaInput {
+            padding: 10px;
+            font-size: 18px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        #refreshCaptcha {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        #captchaCanvas {
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .error {
+            display: none;
+            padding: 10px;
+            background-color: #f44336;
+            color: white;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Видео на заднем фоне -->
+    <video autoplay loop muted style="position: fixed; z-index: -1; top: -1; left: 100; width: 100%; height: 115%;">
+        <source src="vid1.mp4" type="video/mp4">
+    </video>
+
+    <header id="registrationHeader">Добро пожаловать</header>
+    <form id="registrationForm" style="text-align: center;">
+        <label for="username">Логин:</label><br>
+        <input type="text" id="username" name="username" required><br>
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required><br>
+        <label for="password">Пароль:</label><br>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <!-- Место для отображения капчи -->
+        <canvas id="captchaCanvas" width="150" height="50"></canvas>
+        <!-- Поле ввода для капчи -->
+        <input type="text" id="captchaInput" name="captchaInput" required><br>
+        <!-- Кнопка для обновления капчи -->
+        <button id="refreshCaptcha" style="background-color: green;">Обновить</button>
+
+        <button type="submit">Регистрация</button>
+    </form>
+
+    <!-- Окно для отображения ошибки -->
+    <div id="error" class="error"></div>
+
+    <script>
+    function generateCaptcha() {
+        const captcha = Math.floor(Math.random() * 9000) + 1000;
+        return captcha;
+    }
+
+    let captchaValue;
+
+    function displayCaptcha() {
+        captchaValue = generateCaptcha();
+
+        const canvas = document.getElementById("captchaCanvas");
+        const ctx = canvas.getContext("2d");
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.font = "30px Arial";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.strokeStyle = "#000";
+        ctx.lineWidth = 2;
+        ctx.strokeText(captchaValue, canvas.width / 2, canvas.height / 2);
+        ctx.fillText(captchaValue, canvas.width / 2, canvas.height / 2);
+    }
+
+    displayCaptcha();
+
+    const refreshButton = document.getElementById("refreshCaptcha");
+    refreshButton.addEventListener("click", displayCaptcha);
+
+    const form = document.getElementById("registrationForm");
+
+    form.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const username = document.getElementById("username").value;
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        const captchaInput = document.getElementById("captchaInput").value;
+
+        const formData = {
+            username: username,
+            email: email,
+            password: password,
+            captchaInput: captchaInput,
+            joined: new Date(), // Сохраняем текущее время регистрации
+            location: "Россия" // Здесь нужно получить выбранную страну из формы или из другого источника
+        };
+
+        localStorage.setItem('formData', JSON.stringify(formData)); // Сохраняем данные формы в локальном хранилище
+        localStorage.setItem("login", username); // Сохраняем логин в локальное хранилище
+
+        if (captchaInput !== captchaValue.toString()) {
+            const errorDiv = document.getElementById("error");
+            errorDiv.textContent = "Неверная капча! Пожалуйста, попробуйте еще раз.";
+            errorDiv.style.display = "block";
+        } else {
+            window.location.href = "index.html";
+        }
+    });
+</script>
+</body>
+</html>
