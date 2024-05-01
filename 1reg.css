@@ -1,0 +1,85 @@
+#registrationForm {
+    max-width: 300px; /* Максимальная ширина формы */
+    margin: 0 auto; /* Центрирование формы по горизонтали */
+    padding: 20px; /* Внутренний отступ */
+    background-color: #f4f4f4; /* Цвет фона формы */
+    border-radius: 15px; /* Более закругленные углы формы */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Более заметная тень */
+    animation: backgroundAnimation 20s infinite alternate; /* Анимация фона */
+}
+
+/* Стили для шапки */
+#registrationHeader {
+    text-align: center; /* Выравнивание по центру */
+    background-color: #333; /* Цвет фона */
+    color: #fff; /* Цвет текста */
+    padding: 20px; /* Внутренний отступ */
+    border-top-left-radius: 15px; /* Скругленные углы в верхнем левом углу */
+    border-top-right-radius: 15px; /* Скругленные углы в верхнем правом углу */
+    margin-bottom: 20px; /* Отступ снизу */
+}
+
+/* Изменение цвета фона шапки при наведении */
+#registrationHeader:hover {
+    background-color: #555; /* Новововый цвет фона */
+}
+
+
+/* Анимация фона */
+@keyframes backgroundAnimation {
+    0% {
+        background-color: #f4f4f4;
+    }
+    50% {
+        background-color: #eaeaea;
+    }
+    100% {
+        background-color: #f4f4f4;
+    }
+}
+
+/* Стили для текстовых полей ввода */
+#registrationForm input[type="text"],
+#registrationForm input[type="email"],
+#registrationForm input[type="password"] {
+    width: 100%; 
+    padding: 10px; 
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px; /* Более скругленные углы */
+    box-sizing: border-box; 
+}
+
+/* Стили для кнопки отправки формы */
+#registrationForm button[type="submit"] {
+    width: 100%; 
+    padding: 10px; 
+    background-color: #FF6347; /* Заменяем зеленый цвет на красный */
+    color: #fff; /* Белый текст */
+    border: none; 
+    border-radius: 10px; /* Более скругленные углы */
+    cursor: pointer; 
+}
+
+/* Стили для кнопки отправки формы при наведении */
+#registrationForm button[type="submit"]:hover {
+    background-color: #FF4500; /* Цвет фона кнопки при наведении */
+}
+
+/* Стили для заголовка */
+#registrationForm header {
+    text-align: center; /* Выравнивание по центру */
+    background-color: #333; /* Цвет фона */
+    color: #fff; /* Цвет текста */
+    padding: 20px; /* Внутренний отступ */
+    border-top-left-radius: 15px; /* Скругленные углы в верхнем левом углу */
+    border-top-right-radius: 15px; /* Скругленные углы в верхнем правом углу */
+    transition: background-color 0.3s ease; /* Плавное изменение цвета фона */
+    margin-bottom: 20px; /* Отступ снизу */
+}
+
+/* Изменение цвета фона шапки при наведении */
+#registrationForm header:hover {
+    background-color: #555; /* Новый цвет фона */
+}
+
